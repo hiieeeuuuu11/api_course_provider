@@ -1,5 +1,7 @@
 package com.example.api_course_producer.model.course_model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +24,9 @@ public class Lesson {
     String videoUrl;
     String textUrl;
 
-    @ManyToOne @JoinColumn(name = "chapter_id")
+    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference
     Chapter chapter_id;
+
 
 
 }

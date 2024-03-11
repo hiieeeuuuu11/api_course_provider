@@ -1,5 +1,6 @@
 package com.example.api_course_producer.model.course_model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +26,9 @@ public class Course {
 
     int isPublished;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id",referencedColumnName = "id")
+    @JsonBackReference
+    private List<Chapter> chapters;
 
 }
