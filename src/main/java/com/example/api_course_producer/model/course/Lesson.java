@@ -1,9 +1,10 @@
-package com.example.api_course_producer.model.course_model;
+package com.example.api_course_producer.model.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,9 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "lesson")
 @Entity
+@Builder
 public class Lesson {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String title;
@@ -24,7 +26,7 @@ public class Lesson {
     String videoUrl;
     String textUrl;
 
-    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference
+    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference("reference1")
     Chapter chapter_id;
 
 

@@ -1,9 +1,10 @@
-package com.example.api_course_producer.model.course_model;
+package com.example.api_course_producer.model.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "chapter")
 @Entity
+@Builder
 public class Chapter {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String title;
@@ -25,12 +27,13 @@ public class Chapter {
 
     String description;
 
-    @ManyToOne @JoinColumn(name = "course_id") @JsonBackReference
+    @ManyToOne @JoinColumn(name = "course_id") @JsonBackReference("reference1")
     Course course_id;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "chapter_id",referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference
+    //@JsonBackReference("reference2")
     private List<Lesson> lessons;
 
 }
