@@ -28,13 +28,9 @@ public class ICourseDownloadService implements CourseDownloadService {
         return courseRepository.findAll();
     }
 
-
     @Override
     public Course getCourseById(int course_id) {
         Course course = courseRepository.findById(course_id).orElse(null);
-        if(course.getImageUrl()!= null){
-            service.generatePreSignedUrl(course.getImageUrl(), HttpMethod.GET);
-        }
         return course;
     }
 

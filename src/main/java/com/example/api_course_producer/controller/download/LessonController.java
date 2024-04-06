@@ -19,7 +19,7 @@ public class LessonController {
     @Autowired
     LessonDownloadService iLessonDownloadService;
 
-    @GetMapping("/getallLesson")
+    @GetMapping("/getalllesson")
     public ResponseEntity<List<Lesson>> getallLesson(){
         List<Lesson> lessonList =iLessonDownloadService.getallLesson();
         return ResponseEntity.ok(lessonList);

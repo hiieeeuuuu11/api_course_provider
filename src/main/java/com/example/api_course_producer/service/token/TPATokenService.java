@@ -18,7 +18,7 @@ public class TPATokenService {
     CourseDownloadService downloadService;
 
     @Autowired
-    jwtService jwtService;
+    JwtService jwtService;
 
     @Autowired
     ThirdPartyAppRepository thirdPartyAppRepository;

@@ -1,6 +1,7 @@
 package com.example.api_course_producer.service.upload;
 
 import com.example.api_course_producer.dto.ChapterRequest;
+import com.example.api_course_producer.model.course.Author;
 import com.example.api_course_producer.model.course.Chapter;
 import com.example.api_course_producer.model.course.Course;
 import com.example.api_course_producer.repository.ChapterRepository;
@@ -37,6 +38,15 @@ public class IChapterUploadService implements ChapterUploadService{
 
     @Override
     public Chapter updateChapter(Chapter chapter)                                                                                    {
+        Chapter chapter1 = chapterRepository.findById(chapter.getId()).orElse(null);
+        if (chapter1 != null) {
+            return chapterRepository.save(chapter);
+        }
         return null;
+    }
+
+    @Override
+    public void deleteChapter(int id) {
+        chapterRepository.deleteById(id);
     }
 }

@@ -24,7 +24,7 @@ public class ChapterController {
         return ResponseEntity.ok(chapterList);
     }
     @GetMapping("/getchapterbycourse")
-    public ResponseEntity<List<Chapter>> getChapterbyCourse(@RequestParam("course-id") int course_id){
+    public ResponseEntity<List<Chapter>> getChapterbyCourse(@RequestParam("courseid") int course_id){
         List<Chapter> chapterList=iChapterDownloadService.getChapterbyCourse(course_id);
         return  ResponseEntity.ok(chapterList);
     }

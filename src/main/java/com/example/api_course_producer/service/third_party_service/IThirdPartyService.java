@@ -29,7 +29,7 @@ public class IThirdPartyService implements ThirdPartyService{
     }
 
     @Override
-    public ThirdPartyApplication save(ThirdPartyApplication thirdPartyApplication) {
+    public ThirdPartyApplication update(ThirdPartyApplication thirdPartyApplication) {
         return thirdPartyAppRepository.save(thirdPartyApplication);
     }
 
@@ -42,4 +42,7 @@ public class IThirdPartyService implements ThirdPartyService{
     public ThirdPartyApplication findByAddress(String address) {
         return thirdPartyAppRepository.findByAppAddress(address);
     }
+
+
+
 }

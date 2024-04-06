@@ -15,5 +15,9 @@ public class CourseRequest {
     String title;
     String description;
     MultipartFile multipartFile;
+    String topic;
     int isPublished;
+
+    int author_id;
+
 }

@@ -3,6 +3,7 @@ package com.example.api_course_producer.service.upload;
 import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.model.course.Course;
 import com.example.api_course_producer.repository.CourseRepository;
+import com.example.api_course_producer.service.AuthorService;
 import com.example.api_course_producer.service.cloud.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class ICourseUploadService implements CourseUploadService{
 
     @Autowired
     CourseRepository courseRepository;
+
+    @Autowired
+    AuthorService authorService;
 
     public Course addCourse(Course course){
         return courseRepository.save(course);
@@ -32,9 +36,9 @@ public class ICourseUploadService implements CourseUploadService{
             imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(), "logo");
         }
         Course course = Course.builder()
-                .id(courseDetailInformation.getId())
                 .title(courseDetailInformation.getTitle())
                 .imageUrl(imgUrl)
+                .author(authorService.getAuthorById(courseDetailInformation.getAuthor_id()))
                 .isPublished(courseDetailInformation.getIsPublished())
                 .build();
         return courseRepository.save(course);

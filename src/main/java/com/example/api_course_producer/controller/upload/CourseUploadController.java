@@ -19,7 +19,7 @@ public class CourseUploadController {
     S3Service s3service;
 
     @PostMapping("/add")
-    public ResponseEntity<Course> test4(@ModelAttribute CourseRequest courseDetailInformation) {
+    public ResponseEntity<Course> add(@ModelAttribute CourseRequest courseDetailInformation) {
         String imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(),"logo");
         Course course = Course.builder()
                 .id(courseDetailInformation.getId())

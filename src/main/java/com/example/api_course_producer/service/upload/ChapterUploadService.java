@@ -11,4 +11,6 @@ public interface ChapterUploadService {
 
     Chapter updateChapter(Chapter chapter);
 
+    void deleteChapter(int id);
+
 }

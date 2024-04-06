@@ -11,6 +11,10 @@ public interface LessonUploadService {
 
     Lesson addLessonToChapter(LessonRequest lessonRequest);
 
+    Lesson updateLesson(Lesson lesson);
+
+    void deleteLesson(int id);
+
     Map<String, String> getPresignUrlFromS3(String type);
 
 }

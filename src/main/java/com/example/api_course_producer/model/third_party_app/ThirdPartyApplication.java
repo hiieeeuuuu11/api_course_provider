@@ -27,6 +27,8 @@ public class ThirdPartyApplication {
 
     String appAddress;
 
+    String email;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "thirdPartyApplication")
     @JsonIgnore
     List<ThirdParty_Course> thirdParty_course;

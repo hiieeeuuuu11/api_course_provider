@@ -7,10 +7,9 @@ import com.example.api_course_producer.model.third_party_app.ThirdPartyApplicati
 
 public interface ThirdPartyService {
 
-
     ThirdPartyApplication getById(int id);
 
-    ThirdPartyApplication save(ThirdPartyApplication thirdPartyApplication);
+    ThirdPartyApplication update(ThirdPartyApplication thirdPartyApplication);
 
     ThirdPartyApplication findByAddress(String address);
 
