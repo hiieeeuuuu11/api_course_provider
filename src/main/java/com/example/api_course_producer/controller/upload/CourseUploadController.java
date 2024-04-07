@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/upload/course")
+@CrossOrigin("*")
 public class CourseUploadController {
 
     @Autowired

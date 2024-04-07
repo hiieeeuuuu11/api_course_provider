@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/upload/chapter")
+@CrossOrigin("*")
 public class ChapterUploadController {
 
     @Autowired
