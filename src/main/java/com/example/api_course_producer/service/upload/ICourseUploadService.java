@@ -37,6 +37,7 @@ public class ICourseUploadService implements CourseUploadService{
         }
         Course course = Course.builder()
                 .title(courseDetailInformation.getTitle())
+                .description(courseDetailInformation.getDescription())
                 .imageUrl(imgUrl)
                 .author(authorService.getAuthorById(courseDetailInformation.getAuthor_id()))
                 .isPublished(courseDetailInformation.getIsPublished())
@@ -46,17 +47,20 @@ public class ICourseUploadService implements CourseUploadService{
 
     @Override
     public Course updateCourseDetailInformation(CourseRequest courseDetailInformation) {
-        String imgUrl = null;
-        if(courseDetailInformation.getMultipartFile()!= null) {
-            imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(), "logo");
+        Course course = courseRepository.findById(courseDetailInformation.getId()).orElse(null);
+        if(course!=null){
+            String imgUrl = null;
+            if(courseDetailInformation.getMultipartFile()!= null) {
+                imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(), "logo");
+            }
+            course.setTitle(courseDetailInformation.getTitle());
+            course.setDescription(courseDetailInformation.getDescription());
+            course.setImageUrl(imgUrl);
+            course.setAuthor(authorService.getAuthorById(courseDetailInformation.getAuthor_id()));
+            course.setIsPublished(courseDetailInformation.getIsPublished());
+            return courseRepository.save(course);
         }
-        Course course = Course.builder()
-                .id(courseDetailInformation.getId())
-                .title(courseDetailInformation.getTitle())
-                .imageUrl(imgUrl)
-                .isPublished(0)
-                .build();
-        return courseRepository.save(course);
+        return null;
     }
 
 
