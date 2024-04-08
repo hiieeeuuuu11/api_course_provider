@@ -25,11 +25,13 @@ public class IChapterUploadService implements ChapterUploadService{
 
     @Override
     public Chapter addChapterToCourse(ChapterRequest chapterDetailInfomation) {
+        Course course = courseRepository.findById(chapterDetailInfomation.getCourse_id()).orElse(null);
+        int numberOfChapter = course.getChapters().size();
         Chapter chapter = Chapter.builder()
                 .title(chapterDetailInfomation.getTitle())
                 .description(chapterDetailInfomation.getDescription())
+                .position(numberOfChapter+1)
                 .build();
-        Course course = courseRepository.findById(chapterDetailInfomation.getCourse_id()).orElse(null);
         course.getChapters().add(chapter);
         courseRepository.save(course);
         //chapterRepository.save(chapter);

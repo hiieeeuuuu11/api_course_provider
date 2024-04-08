@@ -12,4 +12,6 @@ public interface ChapterDownloadService {
     public List<Chapter> getChapterbyCourse(int course_id);
 
     public Chapter getChapterbyId(int id);
+
+    int getNumberOfChapter(int course_id);
 }

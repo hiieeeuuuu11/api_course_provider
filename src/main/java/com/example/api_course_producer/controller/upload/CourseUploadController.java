@@ -35,6 +35,11 @@ public class CourseUploadController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteCourse(@RequestParam("id") int id) {
+        courseUploadService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 }

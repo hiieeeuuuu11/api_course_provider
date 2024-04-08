@@ -25,6 +25,12 @@ public class IChapterDownloadService implements ChapterDownloadService{
         Course course  = courseRepository.findById(course_id).orElse(null);
         return course.getChapters();
     }
+
+    @Override
+    public int getNumberOfChapter(int course_id) {
+        return courseRepository.getNumberOfChapter(course_id);
+    }
+
     @Override
     public Chapter getChapterbyId(int id){
         Chapter chapter  = chapterRepository.findById(id).orElse(null);
