@@ -63,5 +63,8 @@ public class ICourseUploadService implements CourseUploadService{
         return null;
     }
 
-
+    @Override
+    public void delete(int id) {
+        courseRepository.deleteById(id);
+    }
 }

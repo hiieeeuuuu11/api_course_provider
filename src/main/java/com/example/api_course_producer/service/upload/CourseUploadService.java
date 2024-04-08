@@ -13,4 +13,6 @@ public interface CourseUploadService {
 
     Course updateCourseDetailInformation(CourseRequest courseDetailInformation);
 
+    void delete(int id);
+
 }
