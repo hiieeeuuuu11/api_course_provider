@@ -28,7 +28,7 @@ public class Chapter {
 
     String description;
 
-    @ManyToOne @JoinColumn(name = "course_id") @JsonIgnore
+    @ManyToOne @JoinColumn(name = "course_id") @JsonBackReference
     Course course_id;
 
     @OneToMany(cascade = CascadeType.ALL)

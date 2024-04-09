@@ -41,6 +41,7 @@ public class Course {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "course",referencedColumnName = "id")
+    @JsonManagedReference
     @JsonIgnore
     List<ThirdParty_Course> thirdParty_course;
 

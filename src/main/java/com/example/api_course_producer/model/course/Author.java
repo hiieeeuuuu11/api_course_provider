@@ -29,9 +29,9 @@ public class Author {
 
     String email;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "author",referencedColumnName = "id")
-    @JsonManagedReference
-    List<ThirdParty_Course> thirdParty_course;
+    @JsonManagedReference("reference1")
+    List<Course> course;
 
 }

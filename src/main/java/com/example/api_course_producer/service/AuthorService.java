@@ -34,7 +34,7 @@ public class AuthorService {
         if (existingAuthor != null) {
             existingAuthor.setName(updatedAuthor.getName());
             existingAuthor.setDescription(updatedAuthor.getDescription());
-            existingAuthor.setThirdParty_course(updatedAuthor.getThirdParty_course());
+            existingAuthor.setEmail(updatedAuthor.getEmail());
             return authorRepository.save(existingAuthor);
         }
         return null;
