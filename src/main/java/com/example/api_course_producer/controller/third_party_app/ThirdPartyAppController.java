@@ -21,10 +21,10 @@ public class ThirdPartyAppController {
 
     @GetMapping("/getall")
     public ResponseEntity<List<ThirdPartyApplication>> getall(){
-        return new ResponseEntity<>(thirdPartyService.getAll(), HttpStatus.CREATED);
+        return new ResponseEntity<>(thirdPartyService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/getall")
+    @GetMapping("/getbyid")
     public ResponseEntity<ThirdPartyApplication> getbyid(@RequestParam("id") int id){
         return new ResponseEntity<>(thirdPartyService.getById(id), HttpStatus.CREATED);
     }
