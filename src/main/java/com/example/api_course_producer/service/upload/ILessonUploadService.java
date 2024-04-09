@@ -48,6 +48,7 @@ public class ILessonUploadService implements LessonUploadService{
                 .description(lessonRequest.getDescription())
                 .videoUrl(lessonRequest.getVideoUrl())
                 .textUrl(lessonRequest.getTextUrl())
+                .content(lessonRequest.getContent())
                 .build();
         chapter.getLessons().add(lesson);
         chapterRepository.save(chapter);

@@ -26,7 +26,7 @@ public class LessonUploadController {
     }
 
     @PostMapping("/addlessontochapter")
-    public ResponseEntity<Lesson> addLessonToChapter(@RequestBody LessonRequest lessonRequest) {
+    public ResponseEntity<Lesson> addLessonToChapter(@ModelAttribute LessonRequest lessonRequest) {
         Lesson response = lessonUploadService.addLessonToChapter(lessonRequest);
         return ResponseEntity.ok(response);
     }

@@ -23,10 +23,12 @@ public class Lesson {
 
     String description;
 
+    String content;
+
     String videoUrl;
     String textUrl;
 
-    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference("reference1")
+    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference
     Chapter chapter_id;
 
 

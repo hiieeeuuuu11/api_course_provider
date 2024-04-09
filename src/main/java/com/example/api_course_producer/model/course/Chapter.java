@@ -1,6 +1,7 @@
 package com.example.api_course_producer.model.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class Chapter {
 
     String description;
 
-    @ManyToOne @JoinColumn(name = "course_id") @JsonBackReference("reference1")
+    @ManyToOne @JoinColumn(name = "course_id") @JsonIgnore
     Course course_id;
 
     @OneToMany(cascade = CascadeType.ALL)

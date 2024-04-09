@@ -10,15 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LessonRequest {
-
+    int id;
     String title;
 
     String description;
-
     String videoUrl;
-
     String textUrl;
-
+    String content;
     int chapter_id;
 
 }
