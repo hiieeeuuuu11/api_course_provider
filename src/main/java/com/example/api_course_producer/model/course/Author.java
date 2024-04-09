@@ -27,6 +27,8 @@ public class Author {
 
     String description;
 
+    String email;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "author",referencedColumnName = "id")
     @JsonManagedReference
