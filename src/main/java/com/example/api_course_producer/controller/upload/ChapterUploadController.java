@@ -1,6 +1,7 @@
 package com.example.api_course_producer.controller.upload;
 
 import com.example.api_course_producer.dto.ChapterRequest;
+import com.example.api_course_producer.dto.ChapterResponse;
 import com.example.api_course_producer.model.course.Author;
 import com.example.api_course_producer.model.course.Chapter;
 import com.example.api_course_producer.service.upload.ChapterUploadService;
@@ -24,10 +25,11 @@ public class ChapterUploadController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Chapter> updateChapter(@RequestBody Chapter chapter) {
+    public ResponseEntity<ChapterResponse> updateChapter(@RequestBody Chapter chapter) {
         Chapter chapter1 = chapterUploadService.updateChapter(chapter);
+        ChapterResponse chapterResponse = new ChapterResponse(chapter1,chapter1.getCourse_id().getId());
         if (chapter1 != null) {
-            return new ResponseEntity<>(chapter, HttpStatus.OK);
+            return new ResponseEntity<>(chapterResponse, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

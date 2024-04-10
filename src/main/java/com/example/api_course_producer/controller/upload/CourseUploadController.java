@@ -29,6 +29,7 @@ public class CourseUploadController {
     @PutMapping("/update")
     public ResponseEntity<Course> update(@ModelAttribute CourseRequest courseDetailInformation) {
         Course course = courseUploadService.updateCourseDetailInformation(courseDetailInformation);
+        System.out.println(courseDetailInformation);
         if(course!=null){
             return ResponseEntity.ok(course);
         }

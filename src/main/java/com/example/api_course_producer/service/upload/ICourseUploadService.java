@@ -53,6 +53,9 @@ public class ICourseUploadService implements CourseUploadService{
             if(courseDetailInformation.getMultipartFile()!= null) {
                 imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(), "logo");
             }
+            else {
+                imgUrl = course.getImageUrl();
+            }
             course.setTitle(courseDetailInformation.getTitle());
             course.setDescription(courseDetailInformation.getDescription());
             course.setImageUrl(imgUrl);

@@ -39,10 +39,12 @@ public class IChapterUploadService implements ChapterUploadService{
     }
 
     @Override
-    public Chapter updateChapter(Chapter chapter)                                                                                    {
+    public Chapter updateChapter(Chapter chapter)                                                                              {
         Chapter chapter1 = chapterRepository.findById(chapter.getId()).orElse(null);
         if (chapter1 != null) {
-            return chapterRepository.save(chapter);
+            chapter1.setTitle(chapter.getTitle());
+            chapter1.setDescription(chapter.getDescription());
+            return chapterRepository.save(chapter1);
         }
         return null;
     }
