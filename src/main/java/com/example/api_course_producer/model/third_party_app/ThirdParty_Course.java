@@ -26,7 +26,7 @@ public class ThirdParty_Course {
     @ManyToOne @JoinColumn(name = "thirdPartyApplication")
     ThirdPartyApplication thirdPartyApplication;
 
-    @ManyToOne @JoinColumn(name = "course") @JsonBackReference
+    @ManyToOne @JoinColumn(name = "course")
     Course course;
 
     Date startDate;

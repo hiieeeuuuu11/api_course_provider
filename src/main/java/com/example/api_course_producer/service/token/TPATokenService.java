@@ -26,7 +26,21 @@ public class TPATokenService {
     @Autowired
     ThirdParty_CourseRepository thirdParty_courseRepository;
 
-    public boolean isTokenValid(String token){
+    public boolean isTokenValid(String token,int id){
+        int tpaid = jwtService.extractTPAId(token);
+        int courseid = jwtService.extractCourseId(token);
+        Course course1 = downloadService.getCourseById(courseid);
+        ThirdPartyApplication thirdPartyApplication = thirdPartyAppRepository.getReferenceById(tpaid);
+
+        List<ThirdParty_Course> thirdParty_course = thirdParty_courseRepository.findValid(course1,thirdPartyApplication);
+
+        if(!jwtService.isTokenExpried(token) && thirdParty_course.size() > 0 && id == courseid){
+            return true;
+        }
+        else return false;
+    }
+
+    public int getCourse(String token){
         int tpaid = jwtService.extractTPAId(token);
         int courseid = jwtService.extractCourseId(token);
         Course course1 = downloadService.getCourseById(courseid);
@@ -35,9 +49,9 @@ public class TPATokenService {
         List<ThirdParty_Course> thirdParty_course = thirdParty_courseRepository.findValid(course1,thirdPartyApplication);
 
         if(!jwtService.isTokenExpried(token) && thirdParty_course.size() > 0){
-            return true;
+            return courseid;
         }
-        else return false;
+        else return 0;
     }
 
 

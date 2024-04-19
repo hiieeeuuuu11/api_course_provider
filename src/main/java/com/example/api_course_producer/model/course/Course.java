@@ -46,7 +46,7 @@ public class Course {
     List<ThirdParty_Course> thirdParty_course;
 
     @ManyToOne @JoinColumn(name = "author")
-    @JsonBackReference("reference1")
+    @JsonBackReference()
     Author author;
 
 }

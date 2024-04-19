@@ -32,6 +32,9 @@ public class Author {
     @OneToMany
     @JoinColumn(name = "author",referencedColumnName = "id")
     @JsonManagedReference("reference1")
+    @JsonIgnore
     List<Course> course;
+
+
 
 }

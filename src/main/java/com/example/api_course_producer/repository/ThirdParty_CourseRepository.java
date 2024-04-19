@@ -13,4 +13,13 @@ public interface ThirdParty_CourseRepository extends JpaRepository<ThirdParty_Co
     @Query("select t from ThirdParty_Course t where t.course = :course and t.thirdPartyApplication = :thirdPartyApplication")
     List<ThirdParty_Course> findValid(Course course, ThirdPartyApplication thirdPartyApplication);
 
+    @Query(value = "SELECT * FROM thirdparty_course WHERE end_date >= NOW()",nativeQuery = true)
+    List<ThirdParty_Course> getAllValid();
+
+    @Query(value = "SELECT * FROM thirdparty_course WHERE end_date < NOW()",nativeQuery = true)
+    List<ThirdParty_Course> getAllInValid();
+
+    @Query(value = "SELECT * FROM thirdparty_course WHERE start_date > NOW()",nativeQuery = true)
+    List<ThirdParty_Course> getAllPending();
+
 }
