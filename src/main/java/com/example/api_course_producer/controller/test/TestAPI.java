@@ -1,12 +1,10 @@
 package com.example.api_course_producer.controller.test;
 
 import com.example.api_course_producer.repository.CourseRepository;
-import com.example.api_course_producer.repository.ThirdParty_CourseRepository;
 import com.example.api_course_producer.service.cloud.S3Service;
-import com.example.api_course_producer.service.third_party_service.ThirdPartyService;
 import com.example.api_course_producer.service.token.JwtService;
-import com.example.api_course_producer.service.upload.ChapterUploadService;
-import com.example.api_course_producer.service.upload.LessonUploadService;
+import com.example.api_course_producer.service.course.ChapterService;
+import com.example.api_course_producer.service.course.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,21 +20,13 @@ public class TestAPI {
     CourseRepository courseRepository;
 
     @Autowired
-    ChapterUploadService chapterUploadService;
+    ChapterService chapterUploadService;
 
     @Autowired
-    LessonUploadService lessonUploadService;
+    LessonService lessonUploadService;
 
     @Autowired
     JwtService jwtService;
-
-    @Autowired
-    ThirdParty_CourseRepository thirdParty_courseRepository;
-
-    @Autowired
-    ThirdPartyService thirdPartyService;
-
-
 
 //    @GetMapping("/9")
 //    public ResponseEntity<String> test9(@RequestBody LessonRequest lessonRequest) {

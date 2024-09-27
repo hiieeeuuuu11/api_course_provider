@@ -25,29 +25,12 @@ public class JwtService {
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
 
-    public String generateAccessTokenForTPS(ThirdParty_Course thirdParty_course){
-        return generateAccessTokenForTPS(new HashMap<>(),thirdParty_course);
-    }
-
     public String generateToken(AppUser user){
         return generateToken(new HashMap<>(),user);
     }
 
-    public String generateAccessTokenForTPS(Map<String,Object> claims,ThirdParty_Course thirdParty_course){
-        return jwtBuilder(claims,thirdParty_course);
-    }
-
     public String generateToken(Map<String,Object> claims, AppUser user){
         return jwtBuilder(claims,user,jwtExpiration);
-    }
-
-    public String jwtBuilder(Map<String,Object> claims, ThirdParty_Course thirdParty_course){
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(thirdParty_course.getStartDate())
-                .setExpiration(thirdParty_course.getEndDate())
-                .signWith(getKey(),SignatureAlgorithm.HS256)
-                .compact();
     }
 
     public String jwtBuilder(Map<String,Object> claims, AppUser user, long expiration){
@@ -73,15 +56,6 @@ public class JwtService {
                 .getBody();
     }
 
-
-    public int extractCourseId(String token){
-        return extractClaim(token).get("course",Integer.class);
-    }
-
-    public int extractTPAId(String token){
-        return extractClaim(token).get("tpa",Integer.class);
-    }
-
     public Date extractExpiration(String token){
         Function<Claims,Date> extract = Claims::getExpiration;
         return extract.apply(extractClaim(token));
@@ -90,11 +64,6 @@ public class JwtService {
     public String extractUsername(String token){
         Function<Claims,String> extract = Claims::getSubject;
         return extract.apply(extractClaim(token));
-    }
-
-    public boolean isTokenValid(String token,AppUser user){
-        String username = extractUsername(token);
-        return (username.equals(user.getUsername())) && !isTokenExpried(token);
     }
 
     public boolean isTokenExpried(String token) {

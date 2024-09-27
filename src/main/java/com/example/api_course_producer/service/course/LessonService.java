@@ -1,11 +1,12 @@
-package com.example.api_course_producer.service.upload;
+package com.example.api_course_producer.service.course;
 
 import com.example.api_course_producer.dto.LessonRequest;
 import com.example.api_course_producer.entity.course.Lesson;
 
+import java.util.List;
 import java.util.Map;
 
-public interface LessonUploadService {
+public interface LessonService {
 
     Lesson addLesson(Lesson lesson);
 
@@ -16,5 +17,14 @@ public interface LessonUploadService {
     void deleteLesson(int id);
 
     Map<String, String> getPresignUrlFromS3(String type);
+
+    List<Lesson> getallLesson();
+
+    List<Lesson> getLessonbyChapter(int chapter_id);
+
+    Lesson getLessonbyId(int lesson_id);
+
+    Lesson getLessonbyCourseChapter(int lesson_id);
+
 
 }

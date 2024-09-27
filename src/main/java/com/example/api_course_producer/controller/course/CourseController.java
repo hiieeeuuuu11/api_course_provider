@@ -1,10 +1,10 @@
-package com.example.api_course_producer.controller.upload;
+package com.example.api_course_producer.controller.course;
 
 import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.entity.course.Course;
-import com.example.api_course_producer.service.cloud.S3Service;
-import com.example.api_course_producer.service.upload.CourseUploadService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.api_course_producer.service.course.CourseService;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,23 +12,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/upload/course")
 @CrossOrigin("*")
-public class CourseUploadController {
+@RequiredArgsConstructor
+public class CourseController {
 
-    @Autowired
-    CourseUploadService courseUploadService;
-
-    @Autowired
-    S3Service s3service;
+    private final CourseService courseService;
 
     @PostMapping("/add")
     public ResponseEntity<Course> add(@ModelAttribute CourseRequest courseDetailInformation) {
-        Course course = courseUploadService.addCourseDetailInformation(courseDetailInformation);
+        Course course = courseService.addCourseDetailInformation(courseDetailInformation);
         return ResponseEntity.ok(course);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Course> update(@ModelAttribute CourseRequest courseDetailInformation) {
-        Course course = courseUploadService.updateCourseDetailInformation(courseDetailInformation);
+        Course course = courseService.updateCourseDetailInformation(courseDetailInformation);
         System.out.println(courseDetailInformation);
         if(course!=null){
             return ResponseEntity.ok(course);
@@ -38,9 +35,22 @@ public class CourseUploadController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteCourse(@RequestParam("id") int id) {
-        courseUploadService.delete(id);
+        courseService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping()
+    public ResponseEntity<List<Course>> getAllCourse(){
+        List<Course> listCourse = courseService.getAllCourse();
+        return ResponseEntity.ok(listCourse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> getCourseById(@PathVariable("id") int id){
+        Course course = courseService.getCourseById(id);
+        return ResponseEntity.ok(course);
+    }
+
 
 
 }

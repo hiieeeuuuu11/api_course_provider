@@ -21,14 +21,14 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping()
     public ResponseEntity<List<Author>> getAllAuthors() {
         List<Author> authors = authorService.getAllAuthors();
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 
-    @GetMapping("/getbyid")
-    public ResponseEntity<Author> getAuthorById(@RequestParam("id") int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Author> getAuthorById(@PathVariable("id") int id) {
         Author author = authorService.getAuthorById(id);
         if (author != null) {
             return new ResponseEntity<>(author, HttpStatus.OK);
@@ -36,13 +36,13 @@ public class AuthorController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("add")
+    @PostMapping()
     public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
         Author createdAuthor = authorService.createAuthor(author);
         return new ResponseEntity<>(createdAuthor, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<Author> updateAuthor( @RequestBody Author author) {
         Author updatedAuthor = authorService.updateAuthor( author);
         if (updatedAuthor != null) {
@@ -51,8 +51,8 @@ public class AuthorController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteAuthor(@RequestParam("id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAuthor(@PathVariable("id") int id) {
         authorService.deleteAuthor(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

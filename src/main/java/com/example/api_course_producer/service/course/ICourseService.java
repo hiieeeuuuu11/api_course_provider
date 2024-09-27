@@ -1,15 +1,16 @@
-package com.example.api_course_producer.service.upload;
+package com.example.api_course_producer.service.course;
 
 import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.entity.course.Course;
 import com.example.api_course_producer.repository.CourseRepository;
 import com.example.api_course_producer.service.AuthorService;
 import com.example.api_course_producer.service.cloud.S3Service;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ICourseUploadService implements CourseUploadService{
+public class ICourseService implements CourseService {
 
     @Autowired
     S3Service s3service;
@@ -19,6 +20,9 @@ public class ICourseUploadService implements CourseUploadService{
 
     @Autowired
     AuthorService authorService;
+
+    @Autowired
+    S3Service service;
 
     public Course addCourse(Course course){
         return courseRepository.save(course);
@@ -72,5 +76,16 @@ public class ICourseUploadService implements CourseUploadService{
     @Override
     public void delete(int id) {
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Course> getAllCourse() {
+        return courseRepository.findAll();
+    }
+
+    @Override
+    public Course getCourseById(int course_id) {
+        Course course = courseRepository.findById(course_id).orElse(null);
+        return course;
     }
 }
