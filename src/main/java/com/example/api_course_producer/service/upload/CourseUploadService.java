@@ -1,7 +1,7 @@
 package com.example.api_course_producer.service.upload;
 
 import com.example.api_course_producer.dto.CourseRequest;
-import com.example.api_course_producer.model.course.Course;
+import com.example.api_course_producer.entity.course.Course;
 
 public interface CourseUploadService {
 

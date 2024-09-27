@@ -1,6 +1,6 @@
 package com.example.api_course_producer.service;
 
-import com.example.api_course_producer.model.course.Topic;
+import com.example.api_course_producer.entity.course.Topic;
 import com.example.api_course_producer.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

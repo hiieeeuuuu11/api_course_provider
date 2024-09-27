@@ -1,7 +1,6 @@
 package com.example.api_course_producer.service.download;
 
-import com.example.api_course_producer.model.course.Chapter;
-import com.example.api_course_producer.model.course.Course;
+import com.example.api_course_producer.entity.course.Chapter;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.example.api_course_producer.controller;
 
-import com.example.api_course_producer.model.course.Author;
+import com.example.api_course_producer.entity.course.Author;
 import com.example.api_course_producer.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

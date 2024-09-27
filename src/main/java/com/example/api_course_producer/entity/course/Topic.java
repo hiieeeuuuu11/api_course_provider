@@ -1,4 +1,4 @@
-package com.example.api_course_producer.model.user;
+package com.example.api_course_producer.entity.course;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,16 +9,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "appuser")
+@Table(name = "topic")
 @Entity
 @Builder
-public class AppUser {
+public class Topic {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String username;
+    String topic;
 
-    String password;
+
 
 }

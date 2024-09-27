@@ -1,7 +1,7 @@
 package com.example.api_course_producer.service.download;
 
-import com.example.api_course_producer.model.course.Chapter;
-import com.example.api_course_producer.model.course.Course;
+import com.example.api_course_producer.entity.course.Chapter;
+import com.example.api_course_producer.entity.course.Course;
 import com.example.api_course_producer.repository.ChapterRepository;
 import com.example.api_course_producer.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;

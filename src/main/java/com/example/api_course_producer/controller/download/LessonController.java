@@ -1,8 +1,6 @@
 package com.example.api_course_producer.controller.download;
 
-import com.example.api_course_producer.model.course.Chapter;
-import com.example.api_course_producer.model.course.Lesson;
-import com.example.api_course_producer.service.download.ILessonDownloadService;
+import com.example.api_course_producer.entity.course.Lesson;
 import com.example.api_course_producer.service.download.LessonDownloadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

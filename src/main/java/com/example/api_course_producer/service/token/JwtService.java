@@ -1,7 +1,7 @@
 package com.example.api_course_producer.service.token;
 
-import com.example.api_course_producer.model.third_party_app.ThirdParty_Course;
-import com.example.api_course_producer.model.user.AppUser;
+import com.example.api_course_producer.entity.third_party_app.ThirdParty_Course;
+import com.example.api_course_producer.entity.user.AppUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

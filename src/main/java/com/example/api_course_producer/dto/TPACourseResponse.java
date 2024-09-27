@@ -1,7 +1,6 @@
 package com.example.api_course_producer.dto;
 
-import com.example.api_course_producer.model.course.Author;
-import com.example.api_course_producer.model.course.Chapter;
+import com.example.api_course_producer.entity.course.Author;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

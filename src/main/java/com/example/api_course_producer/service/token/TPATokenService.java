@@ -1,8 +1,8 @@
 package com.example.api_course_producer.service.token;
 
-import com.example.api_course_producer.model.course.Course;
-import com.example.api_course_producer.model.third_party_app.ThirdPartyApplication;
-import com.example.api_course_producer.model.third_party_app.ThirdParty_Course;
+import com.example.api_course_producer.entity.course.Course;
+import com.example.api_course_producer.entity.third_party_app.ThirdPartyApplication;
+import com.example.api_course_producer.entity.third_party_app.ThirdParty_Course;
 import com.example.api_course_producer.repository.ThirdPartyAppRepository;
 import com.example.api_course_producer.repository.ThirdParty_CourseRepository;
 import com.example.api_course_producer.service.download.CourseDownloadService;

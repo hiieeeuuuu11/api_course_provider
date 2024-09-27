@@ -1,6 +1,6 @@
 package com.example.api_course_producer.controller.user;
 
-import com.example.api_course_producer.model.user.AppUser;
+import com.example.api_course_producer.entity.user.AppUser;
 import com.example.api_course_producer.service.token.JwtService;
 import com.example.api_course_producer.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

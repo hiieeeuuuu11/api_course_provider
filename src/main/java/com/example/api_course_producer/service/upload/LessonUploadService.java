@@ -1,7 +1,7 @@
 package com.example.api_course_producer.service.upload;
 
 import com.example.api_course_producer.dto.LessonRequest;
-import com.example.api_course_producer.model.course.Lesson;
+import com.example.api_course_producer.entity.course.Lesson;
 
 import java.util.Map;
 

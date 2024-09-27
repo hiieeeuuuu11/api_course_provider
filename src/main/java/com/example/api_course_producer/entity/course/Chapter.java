@@ -1,7 +1,6 @@
-package com.example.api_course_producer.model.course;
+package com.example.api_course_producer.entity.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

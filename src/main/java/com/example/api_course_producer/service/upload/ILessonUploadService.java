@@ -2,8 +2,8 @@ package com.example.api_course_producer.service.upload;
 
 import com.amazonaws.HttpMethod;
 import com.example.api_course_producer.dto.LessonRequest;
-import com.example.api_course_producer.model.course.Chapter;
-import com.example.api_course_producer.model.course.Lesson;
+import com.example.api_course_producer.entity.course.Chapter;
+import com.example.api_course_producer.entity.course.Lesson;
 import com.example.api_course_producer.repository.ChapterRepository;
 import com.example.api_course_producer.repository.LessonRepository;
 import com.example.api_course_producer.service.cloud.S3Service;

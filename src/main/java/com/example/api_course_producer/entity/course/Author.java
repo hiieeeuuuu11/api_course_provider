@@ -1,6 +1,5 @@
-package com.example.api_course_producer.model.course;
+package com.example.api_course_producer.entity.course;
 
-import com.example.api_course_producer.model.third_party_app.ThirdParty_Course;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

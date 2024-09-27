@@ -1,4 +1,4 @@
-package com.example.api_course_producer.model.course;
+package com.example.api_course_producer.entity.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "test")
+@Table(name = "lesson")
 @Entity
 @Builder
-public class Test {
+public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -22,12 +22,14 @@ public class Test {
 
     String description;
 
-    String question;
+    String content;
 
-    String answer;
+    String videoUrl;
+    String textUrl;
 
-    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference("reference1")
+    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference
     Chapter chapter_id;
+
 
 
 }

@@ -2,8 +2,7 @@ package com.example.api_course_producer.controller.upload;
 
 import com.example.api_course_producer.dto.ChapterRequest;
 import com.example.api_course_producer.dto.ChapterResponse;
-import com.example.api_course_producer.model.course.Author;
-import com.example.api_course_producer.model.course.Chapter;
+import com.example.api_course_producer.entity.course.Chapter;
 import com.example.api_course_producer.service.upload.ChapterUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

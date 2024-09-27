@@ -1,6 +1,6 @@
 package com.example.api_course_producer.controller.third_party_app;
 
-import com.example.api_course_producer.model.third_party_app.ThirdPartyApplication;
+import com.example.api_course_producer.entity.third_party_app.ThirdPartyApplication;
 import com.example.api_course_producer.service.third_party_service.ThirdPartyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

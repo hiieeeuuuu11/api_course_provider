@@ -1,7 +1,7 @@
 package com.example.api_course_producer.controller.upload;
 
 import com.example.api_course_producer.dto.CourseRequest;
-import com.example.api_course_producer.model.course.Course;
+import com.example.api_course_producer.entity.course.Course;
 import com.example.api_course_producer.service.cloud.S3Service;
 import com.example.api_course_producer.service.upload.CourseUploadService;
 import org.springframework.beans.factory.annotation.Autowired;

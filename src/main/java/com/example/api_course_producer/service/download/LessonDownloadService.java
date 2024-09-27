@@ -1,7 +1,6 @@
 package com.example.api_course_producer.service.download;
 
-import com.example.api_course_producer.model.course.Lesson;
-import org.springframework.stereotype.Service;
+import com.example.api_course_producer.entity.course.Lesson;
 
 import java.util.List;
 

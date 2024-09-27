@@ -1,6 +1,6 @@
 package com.example.api_course_producer.service.third_party_service;
 
-import com.example.api_course_producer.model.third_party_app.ThirdPartyApplication;
+import com.example.api_course_producer.entity.third_party_app.ThirdPartyApplication;
 import com.example.api_course_producer.repository.ThirdPartyAppRepository;
 import com.example.api_course_producer.service.download.CourseDownloadService;
 import com.example.api_course_producer.service.download.LessonDownloadService;

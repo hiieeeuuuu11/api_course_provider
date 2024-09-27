@@ -1,7 +1,6 @@
-package com.example.api_course_producer.model.course;
+package com.example.api_course_producer.entity.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "lesson")
+@Table(name = "test")
 @Entity
 @Builder
-public class Lesson {
+public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -23,14 +22,12 @@ public class Lesson {
 
     String description;
 
-    String content;
+    String question;
 
-    String videoUrl;
-    String textUrl;
+    String answer;
 
-    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference
+    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference("reference1")
     Chapter chapter_id;
-
 
 
 }

@@ -14,7 +14,6 @@ public class AWSConfig {
     @Value("${aws.accessKey}")
     String accessKey;
 
-
     @Value("${aws.secretKey}")
     String secretKey;
 

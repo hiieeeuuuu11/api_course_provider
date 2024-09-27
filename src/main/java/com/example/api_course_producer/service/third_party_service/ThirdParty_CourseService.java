@@ -2,10 +2,8 @@ package com.example.api_course_producer.service.third_party_service;
 
 import com.example.api_course_producer.dto.TPACourseResponse;
 import com.example.api_course_producer.dto.TPA_CourseRequest;
-import com.example.api_course_producer.model.course.Course;
-import com.example.api_course_producer.model.course.Lesson;
-import com.example.api_course_producer.model.third_party_app.ThirdPartyApplication;
-import com.example.api_course_producer.model.third_party_app.ThirdParty_Course;
+import com.example.api_course_producer.entity.course.Lesson;
+import com.example.api_course_producer.entity.third_party_app.ThirdParty_Course;
 
 import java.util.List;
 
