@@ -1,7 +1,6 @@
 package com.example.api_course_producer.service.token;
 
-import com.example.api_course_producer.entity.third_party_app.ThirdParty_Course;
-import com.example.api_course_producer.entity.user.AppUser;
+import com.example.api_course_producer.entity.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,18 +24,18 @@ public class JwtService {
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
 
-    public String generateToken(AppUser user){
+    public String generateToken(User user){
         return generateToken(new HashMap<>(),user);
     }
 
-    public String generateToken(Map<String,Object> claims, AppUser user){
+    public String generateToken(Map<String,Object> claims, User user){
         return jwtBuilder(claims,user,jwtExpiration);
     }
 
-    public String jwtBuilder(Map<String,Object> claims, AppUser user, long expiration){
+    public String jwtBuilder(Map<String,Object> claims, User user, long expiration){
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(user.getUsername())
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getKey(),SignatureAlgorithm.HS256)

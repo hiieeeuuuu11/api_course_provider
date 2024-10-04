@@ -1,21 +1,17 @@
 package com.example.api_course_producer.entity.course;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-import java.util.List;
 
+@Table(name = "chapters")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "chapter")
-@Entity
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Chapter {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +23,7 @@ public class Chapter {
 
     String description;
 
-    @ManyToOne @JoinColumn(name = "course_id") @JsonBackReference
-    Course course_id;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "chapter_id",referencedColumnName = "id")
-    @JsonManagedReference
-    private List<Lesson> lessons;
+    @ManyToOne @JoinColumn(name = "course_id")
+    Course course;
 
 }

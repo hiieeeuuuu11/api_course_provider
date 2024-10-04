@@ -37,7 +37,7 @@ public class ChapterController {
     @PostMapping("/update")
     public ResponseEntity<ChapterResponse> updateChapter(@RequestBody Chapter chapter) {
         Chapter chapter1 = chapterService.updateChapter(chapter);
-        ChapterResponse chapterResponse = new ChapterResponse(chapter1,chapter1.getCourse_id().getId());
+        ChapterResponse chapterResponse = new ChapterResponse(chapter1,chapter1.getCourse().getId());
         if (Objects.isNull(chapter1)) {
             return new ResponseEntity<>(chapterResponse, HttpStatus.OK);
         }

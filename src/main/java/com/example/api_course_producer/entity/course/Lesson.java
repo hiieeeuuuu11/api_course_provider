@@ -1,18 +1,16 @@
 package com.example.api_course_producer.entity.course;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "lesson")
+@Table(name = "lessons")
 @Entity
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +23,10 @@ public class Lesson {
     String content;
 
     String videoUrl;
+
     String textUrl;
 
-    @ManyToOne @JoinColumn(name = "chapter_id") @JsonBackReference
-    Chapter chapter_id;
-
-
+    @ManyToOne @JoinColumn(name = "chapter_id")
+    Chapter chapter;
 
 }

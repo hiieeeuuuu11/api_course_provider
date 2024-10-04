@@ -1,51 +1,47 @@
 package com.example.api_course_producer.entity.course;
 
-import com.example.api_course_producer.entity.third_party_app.ThirdParty_Course;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "course")
+@Table(name = "courses")
 @Entity
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    Provider provider;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    Topic topic;
+
+    @Column(nullable = false)
     String title;
 
+    @Column(columnDefinition = "TEXT")
     String description;
 
     String imageUrl;
 
-    int isPublished;
+    Integer isPublished;
 
-    String topic;
+    Integer price;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id",referencedColumnName = "id")
-    @JsonManagedReference
-    private List<Chapter> chapters;
+    @Column(nullable = false)
+    LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course",referencedColumnName = "id")
-    @JsonManagedReference
-    @JsonIgnore
-    List<ThirdParty_Course> thirdParty_course;
-
-    @ManyToOne @JoinColumn(name = "author")
-    @JsonBackReference()
-    Author author;
-
+    @Column(nullable = false)
+    LocalDateTime updatedAt;
 }

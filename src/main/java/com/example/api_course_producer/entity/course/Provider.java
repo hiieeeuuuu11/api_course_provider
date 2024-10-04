@@ -3,20 +3,19 @@ package com.example.api_course_producer.entity.course;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "author")
+@Table(name = "providers")
 @Entity
 @Builder
-public class Author {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Provider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
