@@ -2,6 +2,8 @@ package com.example.api_course_producer.controller.course;
 
 import com.example.api_course_producer.dto.ChapterRequest;
 import com.example.api_course_producer.dto.ChapterResponse;
+import com.example.api_course_producer.dto.response.BaseResponse;
+import com.example.api_course_producer.dto.response.ResponseFactory;
 import com.example.api_course_producer.entity.course.Chapter;
 import com.example.api_course_producer.service.course.ChapterService;
 import java.util.List;
@@ -25,48 +27,40 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class ChapterController {
 
-    @Autowired
-    ChapterService chapterService;
+  @Autowired ChapterService chapterService;
 
-    @PostMapping("/addtocourse")
-    public ResponseEntity<Chapter> add(@ModelAttribute ChapterRequest chapterDetailInfomation) {
-        Chapter chapter = chapterService.addChapterToCourse(chapterDetailInfomation);
-        return ResponseEntity.ok(chapter);
-    }
+  @PostMapping("/addtocourse")
+  public ResponseEntity<BaseResponse<Chapter>> add(@RequestBody Chapter chapterDetailInfomation) {
+    return ResponseFactory.success(chapterService.addChapter(chapterDetailInfomation));
+  }
 
-    @PostMapping("/update")
-    public ResponseEntity<ChapterResponse> updateChapter(@RequestBody Chapter chapter) {
-        Chapter chapter1 = chapterService.updateChapter(chapter);
-        ChapterResponse chapterResponse = new ChapterResponse(chapter1,chapter1.getCourse().getId());
-        if (Objects.isNull(chapter1)) {
-            return new ResponseEntity<>(chapterResponse, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+  @PostMapping("/update")
+  public ResponseEntity<BaseResponse<ChapterResponse>> updateChapter(@RequestBody Chapter chapter) {
+    Chapter chapter1 = chapterService.updateChapter(chapter);
+    ChapterResponse chapterResponse = new ChapterResponse(chapter1, chapter1.getCourse().getId());
+    return ResponseFactory.success(chapterResponse);
+  }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteAuthor(@RequestParam("id") int id) {
-        chapterService.deleteChapter(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+  @DeleteMapping("/delete")
+  public ResponseEntity<BaseResponse<Void>> deleteAuthor(@RequestParam("id") int id) {
+    chapterService.deleteChapter(id);
+    return ResponseFactory.success();
+  }
 
-    @GetMapping()
-    public ResponseEntity<List<Chapter>> getAllChapter(){
-        List<Chapter> chapterList = chapterService.getallChapter();
-        return ResponseEntity.ok(chapterList);
-    }
+  @GetMapping()
+  public ResponseEntity<BaseResponse<List<Chapter>>> getAllChapter() {
+    return ResponseFactory.success(chapterService.getallChapter());
+  }
 
-    @GetMapping("/getchapterbycourse")
-    public ResponseEntity<List<Chapter>> getChapterByCourse(@RequestParam("course-id") int course_id){
-        List<Chapter> chapterList= chapterService.getChapterbyCourse(course_id);
-        return  ResponseEntity.ok(chapterList);
-    }
+  @GetMapping("/getchapterbycourse")
+  public ResponseEntity<BaseResponse<List<Chapter>>> getChapterByCourse(
+      @RequestParam("course-id") int course_id) {
+    return ResponseFactory.success(chapterService.getChapterbyCourse(course_id));
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Chapter> getChapterById(@PathVariable("id") int id){
-        Chapter chapter= chapterService.getChapterbyId(id);
-        return  ResponseEntity.ok(chapter);
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<BaseResponse<Chapter>> getChapterById(@PathVariable("id") int id) {
 
-
+    return ResponseFactory.success(chapterService.getChapterbyId(id));
+  }
 }

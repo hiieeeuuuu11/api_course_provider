@@ -42,6 +42,13 @@ public class ApiExceptionHandler {
         .body(ErrorResponse.error("Có lỗi xảy ra, vui lòng liên hệ đội dự án để được hỗ trợ!"));
   }
 
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e) {
+    logError(e);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(ErrorResponse.error(e.getMessage()));
+  }
+
   /**
    * Xử lý exception do đội dự án throw ra
    *
@@ -52,7 +59,7 @@ public class ApiExceptionHandler {
   public ResponseEntity<ErrorResponse> handleWarehouseException(CourseAppException e) {
     logError(e);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(ErrorResponse.error(e.getMessage(), e.getErrorCode()));
+        .body(ErrorResponse.error(e.getMessage()));
   }
 
   @ExceptionHandler(BadRequestException.class)
@@ -68,7 +75,7 @@ public class ApiExceptionHandler {
     String errorMessage = String.format("Trường header '%s' không được để trống", ex.getHeaderName());
     logError(ex);
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .body(ErrorResponse.error(errorMessage, "missing_request_header"));
+        .body(ErrorResponse.error(errorMessage));
   }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
@@ -92,7 +99,7 @@ public class ApiExceptionHandler {
   public ResponseEntity<ErrorResponse> handleObjectNotFoundException(ObjectNotFoundException e) {
     logError(e);
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body(ErrorResponse.error(e.getMessage(), e.getErrorCode()));
+        .body(ErrorResponse.error(e.getMessage()));
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)

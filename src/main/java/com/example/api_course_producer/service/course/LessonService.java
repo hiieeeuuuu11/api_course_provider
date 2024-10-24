@@ -8,23 +8,21 @@ import java.util.Map;
 
 public interface LessonService {
 
-    Lesson addLesson(Lesson lesson);
+  Lesson addLesson(Lesson lesson);
 
-    Lesson addLessonToChapter(LessonRequest lessonRequest);
+  Lesson addLessonToChapter(LessonRequest lessonRequest);
 
-    Lesson updateLesson(Lesson lesson);
+  Lesson updateLesson(Lesson lesson);
 
-    void deleteLesson(int id);
+  void deleteLesson(int id);
 
-    Map<String, String> getPresignUrlFromS3(String type);
+  Map<String, String> getPresignUrlFromS3(String type);
 
-    List<Lesson> getallLesson();
+  List<Lesson> getallLesson();
 
-    List<Lesson> getLessonbyChapter(int chapter_id);
+  List<Lesson> getLessonbyChapter(int chapter_id);
 
-    Lesson getLessonbyId(int lesson_id);
+  Lesson getLessonbyId(int lesson_id);
 
-    Lesson getLessonbyCourseChapter(int lesson_id);
-
-
+  Lesson getLessonbyCourseChapter(int lesson_id);
 }

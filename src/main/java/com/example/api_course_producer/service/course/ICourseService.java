@@ -15,69 +15,82 @@ import org.springframework.stereotype.Service;
 @Service
 public class ICourseService implements CourseService {
 
-    @Autowired
-    S3Service s3service;
+  @Autowired S3Service s3service;
 
-    @Autowired
-    CourseRepository courseRepository;
+  @Autowired CourseRepository courseRepository;
 
-    @Autowired
-    ProviderService providerService;
+  @Autowired ProviderService providerService;
 
-
-    public Course addCourse(Course course){
-        return courseRepository.save(course);
+  public Course addCourse(Course course) {
+    if (courseRepository.existsById(course.getId())) {
+      throw new RuntimeException("Course already exists");
     }
+    return courseRepository.save(course);
+  }
 
-    @Override
-    public Course updateCourse(Course course) {
-        return courseRepository.save(course);
+  @Override
+  public Course updateCourse(Course course) {
+    if (!courseRepository.existsById(course.getId())) {
+      throw new RuntimeException("Course not found");
     }
+    return courseRepository.save(course);
+  }
 
-    @Override
-    public Course addCourseDetailInformation(CourseRequest courseDetailInformation) {
-        String imgUrl = Optional.ofNullable(courseDetailInformation.getMultipartFile())
-                .map(file -> s3service.uploadFile(file, "logo"))
-                .orElse(null);
+  @Override
+  public Course addCourseDetailInformation(CourseRequest courseDetailInformation) {
+    String imgUrl =
+        Optional.ofNullable(courseDetailInformation.getMultipartFile())
+            .map(file -> s3service.uploadFile(file, "logo"))
+            .orElse(null);
 
-        return courseRepository.save(Course.builder()
-                .title(courseDetailInformation.getTitle())
-                .description(courseDetailInformation.getDescription())
-                .imageUrl(imgUrl)
-                .provider(providerService.getAuthorById(courseDetailInformation.getAuthor_id()))
-                .isPublished(courseDetailInformation.getIsPublished())
-                .build());
+    return courseRepository.save(
+        Course.builder()
+            .title(courseDetailInformation.getTitle())
+            .description(courseDetailInformation.getDescription())
+            .imageUrl(imgUrl)
+            .provider(providerService.getProviderById(courseDetailInformation.getAuthor_id()))
+            .isPublished(courseDetailInformation.getIsPublished())
+            .build());
+  }
+
+  public Course updateCourseDetailInformation(CourseRequest courseDetailInformation) {
+    return courseRepository
+        .findById(courseDetailInformation.getId())
+        .map(
+            course -> {
+              String imgUrl =
+                  Optional.ofNullable(courseDetailInformation.getMultipartFile())
+                      .map(file -> s3service.uploadFile(file, "logo"))
+                      .orElse(course.getImageUrl());
+
+              course.setTitle(courseDetailInformation.getTitle());
+              course.setDescription(courseDetailInformation.getDescription());
+              course.setImageUrl(imgUrl);
+              course.setProvider(
+                  providerService.getProviderById(courseDetailInformation.getAuthor_id()));
+              course.setIsPublished(courseDetailInformation.getIsPublished());
+              return courseRepository.save(course);
+            })
+        .orElse(null);
+  }
+
+  @Override
+  public void delete(int id) {
+    if (!courseRepository.existsById(id)) {
+      throw new RuntimeException("Course not found");
     }
+    courseRepository.deleteById(id);
+  }
 
-    public Course updateCourseDetailInformation(CourseRequest courseDetailInformation) {
-        return courseRepository.findById(courseDetailInformation.getId())
-                .map(course -> {
-                    String imgUrl = Optional.ofNullable(courseDetailInformation.getMultipartFile())
-                            .map(file -> s3service.uploadFile(file, "logo"))
-                            .orElse(course.getImageUrl());
+  @Override
+  public List<Course> getAllCourse() {
+    return courseRepository.findAll();
+  }
 
-                    course.setTitle(courseDetailInformation.getTitle());
-                    course.setDescription(courseDetailInformation.getDescription());
-                    course.setImageUrl(imgUrl);
-                    course.setProvider(providerService.getAuthorById(courseDetailInformation.getAuthor_id()));
-                    course.setIsPublished(courseDetailInformation.getIsPublished());
-                    return courseRepository.save(course);
-                })
-                .orElse(null);
-    }
-
-    @Override
-    public void delete(int id) {
-        courseRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Course> getAllCourse() {
-        return courseRepository.findAll();
-    }
-
-    @Override
-    public Course getCourseById(int course_id) {
-        return courseRepository.findById(course_id).orElseThrow(()->new BadRequestException("No course found for this id"));
-    }
+  @Override
+  public Course getCourseById(int course_id) {
+    return courseRepository
+        .findById(course_id)
+        .orElseThrow(() -> new RuntimeException("No course found for this id"));
+  }
 }

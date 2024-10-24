@@ -1,6 +1,6 @@
 package com.example.api_course_producer.exceptions;
 
-import com.example.api_course_producer.constant.ResponseStatusCodeConst;
+import com.example.api_course_producer.share.enums.ResponseStatusCodeConst;
 
 public class BadRequestException extends CourseAppException {
   public BadRequestException(String message) {

@@ -1,6 +1,8 @@
 package com.example.api_course_producer.controller.course;
 
 import com.example.api_course_producer.dto.LessonRequest;
+import com.example.api_course_producer.dto.response.BaseResponse;
+import com.example.api_course_producer.dto.response.ResponseFactory;
 import com.example.api_course_producer.entity.course.Lesson;
 import com.example.api_course_producer.service.course.LessonService;
 import java.util.List;
@@ -25,53 +27,45 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LessonController {
 
-    private final LessonService lessonService;
+  private final LessonService lessonService;
 
-    @GetMapping("/getpreurl")
-    public ResponseEntity<Map<String,String>> getUrl(@RequestParam("type") String type) {
-        Map<String,String> response = lessonService.getPresignUrlFromS3(type);
-        return ResponseEntity.ok(response);
-    }
+  @GetMapping("/getpreurl")
+  public ResponseEntity<BaseResponse<Map<String, String>>> getUrl(
+      @RequestParam("type") String type) {
+    return ResponseFactory.success(lessonService.getPresignUrlFromS3(type));
+  }
 
-    @PostMapping("/addlessontochapter")
-    public ResponseEntity<Lesson> addLessonToChapter(@ModelAttribute LessonRequest lessonRequest) {
-        Lesson response = lessonService.addLessonToChapter(lessonRequest);
-        return ResponseEntity.ok(response);
-    }
+  @PostMapping("/addlessontochapter")
+  public ResponseEntity<BaseResponse<Lesson>> addLessonToChapter(
+      @ModelAttribute LessonRequest lessonRequest) {
+    Lesson response = lessonService.addLessonToChapter(lessonRequest);
+    return ResponseFactory.success(response);
+  }
 
-    @PostMapping("/update")
-    public ResponseEntity<Lesson> updateChapter(@RequestBody Lesson lesson) {
-        Lesson lesson1 = lessonService.updateLesson(lesson);
-        if (lesson1 != null) {
-            return new ResponseEntity<>(lesson, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+  @PostMapping("/update")
+  public ResponseEntity<BaseResponse<Lesson>> updateChapter(@RequestBody Lesson lesson) {
+    return ResponseFactory.success(lessonService.updateLesson(lesson));
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLesson(@PathVariable("id") int id) {
-        lessonService.deleteLesson(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<BaseResponse<Void>> deleteLesson(@PathVariable("id") int id) {
+    lessonService.deleteLesson(id);
+    return ResponseFactory.success();
+  }
 
-    @GetMapping("/getalllesson")
-    public ResponseEntity<List<Lesson>> getallLesson(){
-        List<Lesson> lessonList =lessonService.getallLesson();
-        return ResponseEntity.ok(lessonList);
-    }
+  @GetMapping("/getalllesson")
+  public ResponseEntity<BaseResponse<List<Lesson>>> getallLesson() {
+    return ResponseFactory.success(lessonService.getallLesson());
+  }
 
-    @GetMapping("/getlessonbychapter")
-    public ResponseEntity<List<Lesson>> getLessonbyChapter(@RequestParam("chapter-id") int chapter_id){
-        List<Lesson> lessonList =lessonService.getLessonbyChapter(chapter_id);
-        return ResponseEntity.ok(lessonList);
-    }
+  @GetMapping("/getlessonbychapter")
+  public ResponseEntity<BaseResponse<List<Lesson>>> getLessonbyChapter(
+      @RequestParam("chapter-id") int chapter_id) {
+    return ResponseFactory.success(lessonService.getLessonbyChapter(chapter_id));
+  }
 
-    @GetMapping("/getlessonbyid")
-    public ResponseEntity<Lesson> getLessonbyId(@RequestParam("id") int id){
-        Lesson lesson =lessonService.getLessonbyId(id);
-        return ResponseEntity.ok(lesson);
-    }
-
-
-
+  @GetMapping("/getlessonbyid")
+  public ResponseEntity<BaseResponse<Lesson>> getLessonbyId(@RequestParam("id") int id) {
+    return ResponseFactory.success(lessonService.getLessonbyId(id));
+  }
 }

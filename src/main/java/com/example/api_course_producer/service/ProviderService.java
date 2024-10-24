@@ -1,7 +1,7 @@
 package com.example.api_course_producer.service;
 
 import com.example.api_course_producer.entity.course.Provider;
-import com.example.api_course_producer.repository.AuthorRepository;
+import com.example.api_course_producer.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,37 +10,46 @@ import java.util.List;
 @Service
 public class ProviderService {
 
-    private final AuthorRepository authorRepository;
+  private final ProviderRepository ProviderRepository;
 
-    @Autowired
-    public ProviderService(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
+  @Autowired
+  public ProviderService(ProviderRepository ProviderRepository) {
+    this.ProviderRepository = ProviderRepository;
+  }
 
-    public List<Provider> getAllAuthors() {
-        return authorRepository.findAll();
-    }
+  public List<Provider> getAllProviders() {
+    return ProviderRepository.findAll();
+  }
 
-    public Provider getAuthorById(int id) {
-        return authorRepository.findById(id).orElse(null);
-    }
+  public Provider getProviderById(int id) {
+    return ProviderRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Provider not found"));
+  }
 
-    public Provider createAuthor(Provider provider) {
-        return authorRepository.save(provider);
-    }
+  public Provider createProvider(Provider provider) {
 
-    public Provider updateAuthor(Provider updatedProvider) {
-        Provider existingProvider = authorRepository.findById(updatedProvider.getId()).orElse(null);
-        if (existingProvider != null) {
-            existingProvider.setName(updatedProvider.getName());
-            existingProvider.setDescription(updatedProvider.getDescription());
-            existingProvider.setWebsite(updatedProvider.getWebsite());
-            return authorRepository.save(existingProvider);
-        }
-        return null;
-    }
+    return ProviderRepository.save(provider);
+  }
 
-    public void deleteAuthor(int id) {
-        authorRepository.deleteById(id);
+  public Provider updateProvider(Provider updatedProvider) {
+    Provider existingProvider =
+        ProviderRepository.findById(updatedProvider.getId())
+            .orElseThrow(() -> new RuntimeException("Provider not found"));
+    if (existingProvider != null) {
+      existingProvider.setName(updatedProvider.getName());
+      existingProvider.setDescription(updatedProvider.getDescription());
+      existingProvider.setWebsite(updatedProvider.getWebsite());
+      return ProviderRepository.save(existingProvider);
     }
+    return null;
+  }
+
+  public void deleteProvider(int id) {
+    Provider provider =
+        ProviderRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Provider not found"));
+    if (provider != null) {
+      ProviderRepository.delete(provider);
+    }
+  }
 }

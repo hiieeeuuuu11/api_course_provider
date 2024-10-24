@@ -1,6 +1,6 @@
 package com.example.api_course_producer.entity.course;
 
-import com.example.api_course_producer.constant.QuestionType;
+import com.example.api_course_producer.share.enums.QuestionType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

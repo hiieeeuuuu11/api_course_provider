@@ -15,19 +15,10 @@ public class ErrorResponse {
   @Schema(description = "Thông báo lỗi")
   private String message;
 
-  @Schema(description = "Mã lỗi")
-  private String errorCode = "";
-
   public static ErrorResponse error(String message) {
     ErrorResponse response = new ErrorResponse();
     response.setMessage(message);
     return response;
   }
 
-  public static ErrorResponse error(String message, String errorCode) {
-    ErrorResponse response = new ErrorResponse();
-    response.setMessage(message);
-    response.setErrorCode(errorCode);
-    return response;
-  }
 }

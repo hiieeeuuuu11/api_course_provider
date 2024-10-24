@@ -10,30 +10,39 @@ import java.util.List;
 @Service
 public class TopicService {
 
-    private final TopicRepository topicRepository;
+  private final TopicRepository topicRepository;
 
-    @Autowired
-    public TopicService(TopicRepository topicRepository) {
-        this.topicRepository = topicRepository;
-    }
+  @Autowired
+  public TopicService(TopicRepository topicRepository) {
+    this.topicRepository = topicRepository;
+  }
 
-    public List<Topic> getAllTopics() {
-        return topicRepository.findAll();
-    }
+  public List<Topic> getAllTopics() {
+    return topicRepository.findAll();
+  }
 
-    public Topic getTopicById(int id) {
-        return topicRepository.findById(id).orElse(null);
-    }
+  public Topic getTopicById(int id) {
+    return topicRepository.findById(id).orElseThrow(() -> new RuntimeException("Topic not found"));
+  }
 
-    public Topic createTopic(Topic topic) {
-        return topicRepository.save(topic);
-    }
+  public Topic createTopic(Topic topic) {
+      if (topicRepository.existsById(topic.getId())) {
+        throw new RuntimeException("Topic already exists");
+      }
+    return topicRepository.save(topic);
+  }
 
-    public Topic updateTopic(Topic updatedTopic) {
-        return topicRepository.save(updatedTopic);
+  public Topic updateTopic(Topic updatedTopic) {
+    if (!topicRepository.existsById(updatedTopic.getId())) {
+      throw new RuntimeException("Topic not found");
     }
+    return topicRepository.save(updatedTopic);
+  }
 
-    public void deleteTopic(int id) {
-        topicRepository.deleteById(id);
+  public void deleteTopic(int id) {
+    if (!topicRepository.existsById(id)) {
+      throw new RuntimeException("Topic not found");
     }
+    topicRepository.deleteById(id);
+  }
 }

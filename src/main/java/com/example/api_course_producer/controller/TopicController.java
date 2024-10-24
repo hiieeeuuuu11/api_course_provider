@@ -1,5 +1,7 @@
 package com.example.api_course_producer.controller;
 
+import com.example.api_course_producer.dto.response.BaseResponse;
+import com.example.api_course_producer.dto.response.ResponseFactory;
 import com.example.api_course_producer.entity.course.Topic;
 import com.example.api_course_producer.service.TopicService;
 import java.util.List;
@@ -25,32 +27,28 @@ public class TopicController {
     private final TopicService topicService;
 
     @GetMapping()
-    public ResponseEntity<List<Topic>> getAllTopics() {
-        List<Topic> topics = topicService.getAllTopics();
-        return new ResponseEntity<>(topics, HttpStatus.OK);
+    public ResponseEntity<BaseResponse<List<Topic>>> getAllTopics() {
+        return ResponseFactory.success(topicService.getAllTopics());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Topic> getTopicById(@PathVariable("id") int id) {
-        Topic topic = topicService.getTopicById(id);
-        return new ResponseEntity<>(topic, HttpStatus.OK);
+    public ResponseEntity<BaseResponse<Topic>> getTopicById(@PathVariable("id") int id) {
+        return ResponseFactory.success(topicService.getTopicById(id));
     }
 
     @PostMapping()
-    public ResponseEntity<Topic> createTopic(@RequestBody Topic topic) {
-        Topic createdTopic = topicService.createTopic(topic);
-        return new ResponseEntity<>(createdTopic, HttpStatus.CREATED);
+    public ResponseEntity<BaseResponse<Topic>> createTopic(@RequestBody Topic topic) {
+      return ResponseFactory.success(topicService.createTopic(topic));
     }
 
     @PutMapping()
-    public ResponseEntity<Topic> updateTopic(@RequestBody Topic topic) {
-        Topic updatedTopic = topicService.updateTopic(topic);
-        return new ResponseEntity<>(updatedTopic, HttpStatus.OK);
+    public ResponseEntity<BaseResponse<Topic>> updateTopic(@RequestBody Topic topic) {
+        return ResponseFactory.success(topicService.updateTopic(topic));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTopic(@PathVariable("id") int id) {
+    public ResponseEntity<BaseResponse<Void>> deleteTopic(@PathVariable("id") int id) {
         topicService.deleteTopic(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseFactory.success();
     }
 }

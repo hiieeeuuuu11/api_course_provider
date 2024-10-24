@@ -4,6 +4,7 @@ import com.example.api_course_producer.dto.ChapterRequest;
 import com.example.api_course_producer.entity.course.Chapter;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ChapterService {
 
