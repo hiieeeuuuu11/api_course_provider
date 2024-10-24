@@ -2,7 +2,7 @@ package com.example.api_course_producer.exceptions;
 
 import com.example.api_course_producer.constant.ResponseStatusCodeConst;
 
-public class BadRequestException extends WarehouseException {
+public class BadRequestException extends CourseAppException {
   public BadRequestException(String message) {
     super(message);
   }

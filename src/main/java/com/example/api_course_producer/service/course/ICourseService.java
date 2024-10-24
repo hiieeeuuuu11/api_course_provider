@@ -2,6 +2,7 @@ package com.example.api_course_producer.service.course;
 
 import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.entity.course.Course;
+import com.example.api_course_producer.exceptions.BadRequestException;
 import com.example.api_course_producer.repository.CourseRepository;
 import com.example.api_course_producer.service.ProviderService;
 import com.example.api_course_producer.service.cloud.S3Service;
@@ -77,6 +78,6 @@ public class ICourseService implements CourseService {
 
     @Override
     public Course getCourseById(int course_id) {
-        return courseRepository.findById(course_id).orElse(null);
+        return courseRepository.findById(course_id).orElseThrow(()->new BadRequestException("No course found for this id"));
     }
 }

@@ -34,7 +34,7 @@ public class ProviderService {
         if (existingProvider != null) {
             existingProvider.setName(updatedProvider.getName());
             existingProvider.setDescription(updatedProvider.getDescription());
-            existingProvider.setEmail(updatedProvider.getEmail());
+            existingProvider.setWebsite(updatedProvider.getWebsite());
             return authorRepository.save(existingProvider);
         }
         return null;

@@ -3,6 +3,7 @@ package com.example.api_course_producer.service.course;
 import com.example.api_course_producer.dto.ChapterRequest;
 import com.example.api_course_producer.entity.course.Chapter;
 import com.example.api_course_producer.entity.course.Course;
+import com.example.api_course_producer.exceptions.BadRequestException;
 import com.example.api_course_producer.repository.ChapterRepository;
 import com.example.api_course_producer.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,12 +43,13 @@ public class IChapterService implements ChapterService {
     @Override
     public Chapter updateChapter(Chapter chapter)                                                                              {
         Chapter chapter1 = chapterRepository.findById(chapter.getId()).orElse(null);
-        if (chapter1 != null) {
-            chapter1.setTitle(chapter.getTitle());
-            chapter1.setDescription(chapter.getDescription());
-            return chapterRepository.save(chapter1);
+        if(chapter1 == null){
+            throw new BadRequestException("No chapter found for this id");
         }
-        return null;
+        chapter1.setTitle(chapter.getTitle());
+        chapter1.setDescription(chapter.getDescription());
+        return chapterRepository.save(chapter1);
+
     }
 
     @Override
@@ -58,11 +60,17 @@ public class IChapterService implements ChapterService {
 
     @Override
     public List<Chapter> getallChapter () {
-        return  chapterRepository.findAll();
+        return chapterRepository.findAll();
     }
     @Override
     public List<Chapter> getChapterbyCourse(int course_id){
-        return chapterRepository.findChaptersByCourse_Id(course_id);
+        var result= chapterRepository.findChaptersByCourse_Id(course_id);
+        if(result.isEmpty()){
+            throw new BadRequestException("No chapter found for this course");
+        }
+        else {
+            return result;
+        }
     }
 
     @Override
@@ -72,7 +80,7 @@ public class IChapterService implements ChapterService {
 
     @Override
     public Chapter getChapterbyId(int id){
-        return chapterRepository.findById(id).orElse(null);
+        return chapterRepository.findById(id).orElseThrow(()-> new BadRequestException("No chapter found for this id"));
     }
 
 }

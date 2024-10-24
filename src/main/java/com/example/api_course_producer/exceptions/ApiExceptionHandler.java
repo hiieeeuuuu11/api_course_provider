@@ -48,8 +48,8 @@ public class ApiExceptionHandler {
    * @param e
    * @return
    */
-  @ExceptionHandler(WarehouseException.class)
-  public ResponseEntity<ErrorResponse> handleWarehouseException(WarehouseException e) {
+  @ExceptionHandler(CourseAppException.class)
+  public ResponseEntity<ErrorResponse> handleWarehouseException(CourseAppException e) {
     logError(e);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(ErrorResponse.error(e.getMessage(), e.getErrorCode()));

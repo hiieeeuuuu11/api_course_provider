@@ -25,13 +25,7 @@ public class Provider {
 
     String description;
 
-    String email;
-
-    @OneToMany
-    @JoinColumn(name = "author",referencedColumnName = "id")
-    @JsonManagedReference("reference1")
-    @JsonIgnore
-    List<Course> course;
+    String website;
 
 
 

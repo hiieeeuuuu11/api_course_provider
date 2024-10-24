@@ -17,8 +17,8 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String topic;
+    String name;
 
-
+    String description;
 
 }

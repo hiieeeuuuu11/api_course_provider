@@ -2,6 +2,7 @@ package com.example.api_course_producer.service.course;
 
 import com.example.api_course_producer.dto.ChapterRequest;
 import com.example.api_course_producer.entity.course.Chapter;
+
 import java.util.List;
 
 public interface ChapterService {
@@ -14,7 +15,7 @@ public interface ChapterService {
 
     void deleteChapter(int id);
 
-    public List<Chapter> getallChapter ();
+    List<Chapter> getallChapter();
 
     public List<Chapter> getChapterbyCourse(int course_id);
 
