@@ -5,18 +5,20 @@ import com.example.api_course_producer.entity.course.Chapter;
 import com.example.api_course_producer.entity.course.Course;
 import com.example.api_course_producer.repository.ChapterRepository;
 import com.example.api_course_producer.repository.CourseRepository;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public class IChapterService implements ChapterService {
 
-    @Autowired
-    ChapterRepository chapterRepository;
+    final ChapterRepository chapterRepository;
 
-    @Autowired
-    CourseRepository courseRepository;
+    final CourseRepository courseRepository;
 
     @Override
     public Chapter addChapter(Chapter chapter) {
@@ -25,17 +27,16 @@ public class IChapterService implements ChapterService {
 
     @Override
     public Chapter addChapterToCourse(ChapterRequest chapterDetailInfomation) {
-        Course course = courseRepository.findById(chapterDetailInfomation.getCourse_id()).orElse(null);
-        int numberOfChapter = course.getChapters().size();
+        Course course = courseRepository.findById(chapterDetailInfomation.getCourse_id()).orElseThrow(NullPointerException::new);
+        List<Chapter> chapters = chapterRepository.findChaptersByCourse_Id(course.getId());
+        int numberOfChapter = chapters.size();
         Chapter chapter = Chapter.builder()
                 .title(chapterDetailInfomation.getTitle())
                 .description(chapterDetailInfomation.getDescription())
                 .position(numberOfChapter+1)
+                .course(course)
                 .build();
-        course.getChapters().add(chapter);
-        courseRepository.save(course);
-        //chapterRepository.save(chapter);
-        return chapter;
+        return chapterRepository.save(chapter);
     }
 
     @Override
@@ -61,19 +62,17 @@ public class IChapterService implements ChapterService {
     }
     @Override
     public List<Chapter> getChapterbyCourse(int course_id){
-        Course course  = courseRepository.findById(course_id).orElse(null);
-        return course.getChapters();
+        return chapterRepository.findChaptersByCourse_Id(course_id);
     }
 
     @Override
     public int getNumberOfChapter(int course_id) {
-        return courseRepository.getNumberOfChapter(course_id);
+        return chapterRepository.countChapterByCourse_Id(course_id);
     }
 
     @Override
     public Chapter getChapterbyId(int id){
-        Chapter chapter  = chapterRepository.findById(id).orElse(null);
-        return chapter;
+        return chapterRepository.findById(id).orElse(null);
     }
 
 }

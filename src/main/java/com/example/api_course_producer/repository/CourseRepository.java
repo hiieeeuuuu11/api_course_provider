@@ -1,12 +1,12 @@
 package com.example.api_course_producer.repository;
 
+import com.example.api_course_producer.entity.course.Chapter;
 import com.example.api_course_producer.entity.course.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course,Integer> {
 
-    @Query(value = "SELECT COUNT(id) FROM chapter WHERE course_id = :course_id",nativeQuery = true)
-    int getNumberOfChapter(int course_id);
 
 }

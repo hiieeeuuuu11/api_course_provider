@@ -3,9 +3,11 @@ package com.example.api_course_producer.service.course;
 import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.entity.course.Course;
 import com.example.api_course_producer.repository.CourseRepository;
-import com.example.api_course_producer.service.AuthorService;
+import com.example.api_course_producer.service.ProviderService;
 import com.example.api_course_producer.service.cloud.S3Service;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,8 @@ public class ICourseService implements CourseService {
     CourseRepository courseRepository;
 
     @Autowired
-    AuthorService authorService;
+    ProviderService providerService;
 
-    @Autowired
-    S3Service service;
 
     public Course addCourse(Course course){
         return courseRepository.save(course);
@@ -35,42 +35,34 @@ public class ICourseService implements CourseService {
 
     @Override
     public Course addCourseDetailInformation(CourseRequest courseDetailInformation) {
-        String imgUrl = null;
-        if(courseDetailInformation.getMultipartFile()!= null) {
-            imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(), "logo");
-        }
-        else{
-            imgUrl = null;
-        }
-        Course course = Course.builder()
+        String imgUrl = Optional.ofNullable(courseDetailInformation.getMultipartFile())
+                .map(file -> s3service.uploadFile(file, "logo"))
+                .orElse(null);
+
+        return courseRepository.save(Course.builder()
                 .title(courseDetailInformation.getTitle())
                 .description(courseDetailInformation.getDescription())
                 .imageUrl(imgUrl)
-                .author(authorService.getAuthorById(courseDetailInformation.getAuthor_id()))
+                .provider(providerService.getAuthorById(courseDetailInformation.getAuthor_id()))
                 .isPublished(courseDetailInformation.getIsPublished())
-                .build();
-        return courseRepository.save(course);
+                .build());
     }
 
-    @Override
     public Course updateCourseDetailInformation(CourseRequest courseDetailInformation) {
-        Course course = courseRepository.findById(courseDetailInformation.getId()).orElse(null);
-        if(course!=null){
-            String imgUrl = null;
-            if(courseDetailInformation.getMultipartFile()!= null) {
-                imgUrl = s3service.uploadFile(courseDetailInformation.getMultipartFile(), "logo");
-            }
-            else {
-                imgUrl = course.getImageUrl();
-            }
-            course.setTitle(courseDetailInformation.getTitle());
-            course.setDescription(courseDetailInformation.getDescription());
-            course.setImageUrl(imgUrl);
-            course.setAuthor(authorService.getAuthorById(courseDetailInformation.getAuthor_id()));
-            course.setIsPublished(courseDetailInformation.getIsPublished());
-            return courseRepository.save(course);
-        }
-        return null;
+        return courseRepository.findById(courseDetailInformation.getId())
+                .map(course -> {
+                    String imgUrl = Optional.ofNullable(courseDetailInformation.getMultipartFile())
+                            .map(file -> s3service.uploadFile(file, "logo"))
+                            .orElse(course.getImageUrl());
+
+                    course.setTitle(courseDetailInformation.getTitle());
+                    course.setDescription(courseDetailInformation.getDescription());
+                    course.setImageUrl(imgUrl);
+                    course.setProvider(providerService.getAuthorById(courseDetailInformation.getAuthor_id()));
+                    course.setIsPublished(courseDetailInformation.getIsPublished());
+                    return courseRepository.save(course);
+                })
+                .orElse(null);
     }
 
     @Override
@@ -85,7 +77,6 @@ public class ICourseService implements CourseService {
 
     @Override
     public Course getCourseById(int course_id) {
-        Course course = courseRepository.findById(course_id).orElse(null);
-        return course;
+        return courseRepository.findById(course_id).orElse(null);
     }
 }
