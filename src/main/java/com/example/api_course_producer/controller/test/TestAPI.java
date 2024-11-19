@@ -7,6 +7,7 @@ import com.example.api_course_producer.service.course.ChapterService;
 import com.example.api_course_producer.service.course.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/test")
@@ -34,5 +35,9 @@ public class TestAPI {
 //        return ResponseEntity.ok(response);
 //    }
 
+    @PostMapping("/sends3")
+    public String sendS3(@RequestParam("file") MultipartFile file) {
+        return s3service.uploadFile(file, "img");
+    }
 
 }
