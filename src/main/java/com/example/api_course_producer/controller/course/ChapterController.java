@@ -30,8 +30,8 @@ public class ChapterController {
   @Autowired ChapterService chapterService;
 
   @PostMapping("/addtocourse")
-  public ResponseEntity<BaseResponse<Chapter>> add(@RequestBody Chapter chapterDetailInfomation) {
-    return ResponseFactory.success(chapterService.addChapter(chapterDetailInfomation));
+  public ResponseEntity<BaseResponse<Chapter>> add(@RequestBody ChapterRequest chapterDetailInfomation) {
+    return ResponseFactory.success(chapterService.addChapterToCourse(chapterDetailInfomation));
   }
 
   @PostMapping("/update")

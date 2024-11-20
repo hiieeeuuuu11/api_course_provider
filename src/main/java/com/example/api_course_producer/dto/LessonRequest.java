@@ -18,7 +18,6 @@ public class LessonRequest {
     String description;
     String videoUrl;
     String textUrl;
-    String content;
-    int chapter_id;
+    int chapterId;
 
 }

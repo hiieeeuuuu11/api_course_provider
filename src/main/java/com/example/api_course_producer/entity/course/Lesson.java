@@ -18,10 +18,6 @@ public class Lesson {
 
     String title;
 
-    String description;
-
-    String content;
-
     String videoUrl;
 
     String textUrl;

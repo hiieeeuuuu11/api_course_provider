@@ -46,16 +46,14 @@ public class ILessonService implements LessonService {
       throw new RuntimeException("Lesson already exists");
     }
     return chapterRepository
-        .findById(lessonRequest.getChapter_id())
+        .findById(lessonRequest.getChapterId())
         .map(
             chapter1 -> {
               Lesson lesson =
                   Lesson.builder()
                       .title(lessonRequest.getTitle())
-                      .description(lessonRequest.getDescription())
                       .videoUrl(lessonRequest.getVideoUrl())
                       .textUrl(lessonRequest.getTextUrl())
-                      .content(lessonRequest.getContent())
                       .chapter(chapter1)
                       .build();
               return lessonRepository.save(lesson);
@@ -73,10 +71,8 @@ public class ILessonService implements LessonService {
         .map(
             lesson1 -> {
               lesson1.setTitle(lesson.getTitle());
-              lesson1.setDescription(lesson.getDescription());
               lesson1.setVideoUrl(lesson.getVideoUrl());
               lesson1.setTextUrl(lesson.getTextUrl());
-              lesson1.setContent(lesson.getContent());
               return lessonRepository.save(lesson1);
             })
         .orElse(null);
