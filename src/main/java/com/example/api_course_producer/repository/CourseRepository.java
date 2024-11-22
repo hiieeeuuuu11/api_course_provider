@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course,Integer> {
 
-
+  List<Course> findAllByProviderId(int providerId);
 }

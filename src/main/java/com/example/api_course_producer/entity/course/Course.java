@@ -39,9 +39,9 @@ public class Course {
 
     Integer price;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     LocalDateTime updatedAt;
 }

@@ -58,9 +58,9 @@ public class LessonController {
     return ResponseFactory.success(lessonService.getallLesson());
   }
 
-  @GetMapping("/getlessonbychapter")
+  @GetMapping("/getlessonbychapter/{chapter_id}")
   public ResponseEntity<BaseResponse<List<Lesson>>> getLessonbyChapter(
-      @RequestParam("chapter-id") int chapter_id) {
+      @PathVariable("chapter_id") int chapter_id) {
     return ResponseFactory.success(lessonService.getLessonbyChapter(chapter_id));
   }
 

@@ -1,6 +1,8 @@
 package com.example.api_course_producer.service;
 
+import com.example.api_course_producer.entity.course.Course;
 import com.example.api_course_producer.entity.course.Provider;
+import com.example.api_course_producer.repository.CourseRepository;
 import com.example.api_course_producer.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +13,12 @@ import java.util.List;
 public class ProviderService {
 
   private final ProviderRepository ProviderRepository;
+  private final CourseRepository courseRepository;
 
   @Autowired
-  public ProviderService(ProviderRepository ProviderRepository) {
+  public ProviderService(ProviderRepository ProviderRepository, CourseRepository courseRepository) {
     this.ProviderRepository = ProviderRepository;
+    this.courseRepository = courseRepository;
   }
 
   public List<Provider> getAllProviders() {
@@ -51,5 +55,9 @@ public class ProviderService {
     if (provider != null) {
       ProviderRepository.delete(provider);
     }
+  }
+
+  public List<Course> getCourseByProvide(int provider_id) {
+    return courseRepository.findAllByProviderId(provider_id);
   }
 }
