@@ -2,7 +2,6 @@ package com.example.api_course_producer.service.course;
 
 import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.entity.course.Course;
-import com.example.api_course_producer.exceptions.BadRequestException;
 import com.example.api_course_producer.repository.CourseRepository;
 import com.example.api_course_producer.service.ProviderService;
 import com.example.api_course_producer.service.cloud.S3Service;
@@ -48,8 +47,9 @@ public class ICourseService implements CourseService {
             .title(courseDetailInformation.getTitle())
             .description(courseDetailInformation.getDescription())
             .imageUrl(imgUrl)
-            .provider(providerService.getProviderById(courseDetailInformation.getAuthor_id()))
+            .provider(providerService.getProviderById(1))
             .isPublished(courseDetailInformation.getIsPublished())
+            .price(courseDetailInformation.getPrice())
             .build());
   }
 
@@ -67,7 +67,7 @@ public class ICourseService implements CourseService {
               course.setDescription(courseDetailInformation.getDescription());
               course.setImageUrl(imgUrl);
               course.setProvider(
-                  providerService.getProviderById(courseDetailInformation.getAuthor_id()));
+                  providerService.getProviderById(courseDetailInformation.getProviderId()));
               course.setIsPublished(courseDetailInformation.getIsPublished());
               return courseRepository.save(course);
             })
@@ -88,9 +88,13 @@ public class ICourseService implements CourseService {
   }
 
   @Override
-  public Course getCourseById(int course_id) {
-    return courseRepository
-        .findById(course_id)
-        .orElseThrow(() -> new RuntimeException("No course found for this id"));
+  public List<Course> getCourseByProvider(int provider_id) {
+    return courseRepository.findAllByProviderId(provider_id);
   }
+
+  @Override
+  public Optional<Course> getCourseById(int id) {
+    return courseRepository.findById(id);
+}
+
 }

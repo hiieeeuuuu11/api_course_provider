@@ -42,8 +42,8 @@ public class ILessonService implements LessonService {
 
   @Override
   public Lesson addLessonToChapter(LessonRequest lessonRequest) {
-    if (lessonRepository.existsById(lessonRequest.getId())) {
-      throw new RuntimeException("Lesson already exists");
+    if (!chapterRepository.existsById(lessonRequest.getChapterId())) {
+      throw new RuntimeException("Chapter not found");
     }
     return chapterRepository
         .findById(lessonRequest.getChapterId())

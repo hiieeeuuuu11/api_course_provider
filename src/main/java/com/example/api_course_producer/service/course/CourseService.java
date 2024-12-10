@@ -4,6 +4,7 @@ import com.example.api_course_producer.dto.CourseRequest;
 import com.example.api_course_producer.entity.course.Course;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseService {
 
@@ -20,6 +21,8 @@ public interface CourseService {
     List<Course> getAllCourse();
 
 
-    Course getCourseById(int course_id);
+    List<Course>getCourseByProvider(int provider_id);
+
+    Optional<Course> getCourseById(int id);
 
 }
