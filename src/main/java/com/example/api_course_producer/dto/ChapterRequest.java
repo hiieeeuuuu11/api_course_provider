@@ -11,10 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChapterRequest {
 
-
+    int id;
     String title;
-
-    int position;
 
     String description;
 

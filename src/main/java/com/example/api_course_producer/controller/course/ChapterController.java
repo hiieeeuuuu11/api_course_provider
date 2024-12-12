@@ -27,8 +27,8 @@ public class ChapterController {
     return ResponseFactory.success(chapterService.addChapterToCourse(chapterDetailInfomation));
   }
 
-  @PutMapping("/update")
-  public ResponseEntity<BaseResponse<ChapterResponse>> updateChapter(@ModelAttribute Chapter chapter) {
+  @PutMapping("/update/{id}")
+  public ResponseEntity<BaseResponse<ChapterResponse>> updateChapter(@ModelAttribute ChapterRequest chapter) {
     Chapter chapter1 = chapterService.updateChapter(chapter);
     ChapterResponse chapterResponse = new ChapterResponse(chapter1, chapter1.getCourse().getId());
     return ResponseFactory.success(chapterResponse);

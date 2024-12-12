@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
@@ -47,13 +46,20 @@ public class IChapterService implements ChapterService {
   }
 
   @Override
-  public Chapter updateChapter(Chapter chapter) {
+  public Chapter updateChapter(ChapterRequest chapter) {
     if (!chapterRepository.existsById(chapter.getId())) {
-      throw new RuntimeException("No chapter found for this id");
+      throw new BadRequestException("No chapter found for this id");
     }
-    chapter.setTitle(chapter.getTitle());
-    chapter.setDescription(chapter.getDescription());
-    return chapterRepository.save(chapter);
+    Chapter chapter1 = chapterRepository
+            .findById(chapter.getId())
+            .map(
+                chapter2 -> {
+                  chapter2.setTitle(chapter.getTitle());
+                  chapter2.setDescription(chapter.getDescription());
+                  return chapterRepository.save(chapter2);
+                })
+            .get();
+    return chapter1;
   }
 
   @Override

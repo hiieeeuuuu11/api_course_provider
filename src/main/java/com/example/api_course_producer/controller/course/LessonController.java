@@ -37,7 +37,7 @@ public class LessonController {
 
   @PostMapping("/addlessontochapter")
   public ResponseEntity<BaseResponse<Lesson>> addLessonToChapter(
-      @RequestBody LessonRequest lessonRequest) {
+      @ModelAttribute LessonRequest lessonRequest) {
     Lesson response = lessonService.addLessonToChapter(lessonRequest);
     return ResponseFactory.success(response);
   }
